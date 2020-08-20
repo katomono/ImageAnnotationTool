@@ -1,46 +1,9 @@
-import sys
-
 from PyQt5.QtCore import Qt, QRectF, QPointF
 from PyQt5.QtGui import QBrush, QPainterPath, QPainter, QColor, QPen, QPixmap
 from PyQt5.QtWidgets import QGraphicsEllipseItem, QWidget, QGraphicsRectItem, QApplication, QGraphicsView, QGraphicsScene, QGraphicsItem
 from typing import Optional, Tuple, Union
 
 
-class GraphicsCrossBarItem(QGraphicsEllipseItem):
-    def __init__(self, center: QPointF, radius: float, parent=None):
-        rect = QRectF(center.x() - radius, center.y() - radius, radius * 2, radius * 2)
-        super(self.__class__, self).__init__(rect, parent)
-        
-        self.hpen = QPen(QColor(255, 255, 0), 2, Qt.SolidLine)
-        self.vpen = QPen(QColor(0, 0, 255), 2, Qt.SolidLine)
-
-    def SetHorizontalPen(self, pen: QPen) -> None:
-        self.hpen = pen
-
-    def SetVerticalPen(self, pen: QPen) -> None:
-        self.vpen = pen
-
-    def paint(self, painter: QPainter, option: 'QStyleOptionGraphicsItem', widget: Optional[QWidget]) -> None:
-        painter.setOpacity(self.alpha)
-
-        c = self.rect().center()
-        r = self.rect().width() / 2
-        x = c.x()
-        y = c.y()
-
-        if widget is None:
-            h = 512
-            w = 512
-        else:
-            h = widget.height()
-            w = widget.width()
-
-        painter.setPen(self.hpen)
-        painter.drawLine(0, y, x - 10, y)
-        painter.drawLine(x + 10, y, w, y)
-        painter.setPen(self.vpen)
-        painter.drawLine(x, 0, x, y - 10)
-        painter.drawLine(x, y + 10, x, h)
 
 class GraphicsResizableRectItem(QGraphicsRectItem):
 
